@@ -21,7 +21,7 @@
             <Setter Property="MinWidth" Value="0"/>
             <Setter Property="MinHeight" Value="0"/>
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Background" Value="Blue"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -46,8 +46,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BackgroundBorder" Property="Background" Value="LightGray"/>
-                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="Orange"/>
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#77FFFFFF"/>
                             </Trigger>
                             <Trigger Property="SortDirection" Value="Ascending">
                                 <Setter TargetName="SortArrow" Property="Visibility" Value="Visible"/>
@@ -112,7 +111,7 @@
 
         <TextBox HorizontalAlignment="Left" KeyUp="TextBox_KeyUp" Margin="981,45,10,10" Name="searchText"  TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
 
-        <DataGrid Margin="122,68,10,10" CellEditEnding="myDataGridView_CellEditEnding"  CanUserAddRows="False" RowEditEnding="myDataGridView_RowEditEnding" EnableRowVirtualization="True" AutoGenerateColumns="False" LoadingRow="myDataGridView_LoadingRow" x:Name="myDataGridView" ItemsSource="{Binding}" BorderBrush="Black" BorderThickness="1,1,1,1" ColumnHeaderHeight="30" RowHeight="22" Opacity="0.90" RowBackground="#FFFFFFFF" AlternatingRowBackground="#cccccccc">
+        <DataGrid Margin="122,68,10,10" CellEditEnding="myDataGridView_CellEditEnding" CanUserAddRows="False" RowEditEnding="myDataGridView_RowEditEnding" EnableRowVirtualization="True" AutoGenerateColumns="False" LoadingRow="myDataGridView_LoadingRow" x:Name="myDataGridView" ItemsSource="{Binding}" BorderBrush="Black" BorderThickness="1,1,1,1" ColumnHeaderHeight="30" RowHeight="22" Opacity="0.90" RowBackground="#FFFFFFFF" AlternatingRowBackground="#cccccccc">
 
             <DataGrid.Columns >
                 <DataGridTextColumn Header="Part Number" Binding="{Binding PartNumber}"></DataGridTextColumn>
