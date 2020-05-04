@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="gth_header_logo_350px.png" />
+    <None Remove="Illuminated Power Plant_edited.jpg" />
+    <None Remove="IND-2.jpeg" />
+    <None Remove="India-manufacturing.jpg" />
+    <None Remove="refinery1.jpg" />
+    <None Remove="RulesConfiguration.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="15.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="gth_header_logo_350px.png" />
+    <Resource Include="Illuminated Power Plant_edited.jpg" />
+    <Resource Include="IND-2.jpeg" />
+    <Resource Include="India-manufacturing.jpg" />
+    <Resource Include="refinery1.jpg" />
+    <Content Include="RulesConfiguration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

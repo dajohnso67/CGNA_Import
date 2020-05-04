@@ -1,0 +1,38 @@
+{
+  "CustomPrice": {
+      "M7284A1004": 501.48,
+      "M7284C1000": 602.51,
+      "Honeywell-Ind": 0,
+      "Honeywell-Masterlogics": 0
+  },
+  "StartsWith": [
+    "C2",
+    "C3",
+    "Custom",
+    "Expedite",
+    "Factory",
+    "GTH"
+  ],
+  "Contains": [
+    "Allen Bradley Custom Engraving",
+    "Control-Panels",
+    "Panduit",
+    "R7999A1005",
+    "AB Training",
+    "Cancellation Fee",
+    "GTG-Packaging",
+    "Labor",
+    "Misc",
+    "NV-Shipping",
+    "Proto-Fab",
+    "ProtoFab",
+    "Repair",
+    "Set up",
+    "Setup",
+    "Set-up",
+    "Service",
+    "Handling Charge",
+    "Minimum Fee",
+    "Rental"
+  ]
+}

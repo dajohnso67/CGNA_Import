@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30028.174
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CGNA_WPF", "CGNA_WPF\CGNA_WPF.csproj", "{AF3C94CD-2E0E-4783-B04B-3D39E425D71A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF3C94CD-2E0E-4783-B04B-3D39E425D71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF3C94CD-2E0E-4783-B04B-3D39E425D71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF3C94CD-2E0E-4783-B04B-3D39E425D71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF3C94CD-2E0E-4783-B04B-3D39E425D71A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA119320-A1B1-4E89-B6A0-34E3F2D1C059}
+	EndGlobalSection
+EndGlobal

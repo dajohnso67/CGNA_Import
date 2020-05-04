@@ -1,0 +1,139 @@
+﻿<Window x:Class="CGNA_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CGNA_WPF"
+        mc:Ignorable="d"
+        Title="CGNA Inventory Upload" Height="800" Width="1200">
+    <Window.Resources>
+        <Style TargetType="{x:Type Thumb}" x:Key="ThumbStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Rectangle Width="1" Stroke="Transparent" Cursor="SizeWE"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="BackgroundBorder" BorderThickness="0,0,0,0"
+                                Background="Black"
+                                BorderBrush="White"
+                                Grid.ColumnSpan="2"/>
+                            <ContentPresenter Margin="6,3,6,3" TextBlock.Foreground="white" VerticalAlignment="Center"/>
+                            <Path x:Name="SortArrow" Visibility="Collapsed" Data="M 0,0 L 1,0 0.5,1 z" Stretch="Fill"
+                             Grid.Column="1" Width="8" Height="6" Fill="White" Margin="0,0,8,0"
+                              VerticalAlignment="Center" RenderTransformOrigin="0.5, 0.4"/>
+                            <Rectangle Width="1" Fill="#000000" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+
+                            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ThumbStyle}"/>
+                            <Thumb x:Name="PART_RightHeaderGripper" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource ThumbStyle}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="LightGray"/>
+                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="Orange"/>
+                            </Trigger>
+                            <Trigger Property="SortDirection" Value="Ascending">
+                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="SortArrow" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="180"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="SortDirection" Value="Descending">
+                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="DisplayIndex" Value="0">
+                                <Setter TargetName="PART_LeftHeaderGripper" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="{x:Type DataGridRowHeader}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="BackgroundBorder" BorderThickness="0,0,0,1"
+                                Background="Black"
+                                BorderBrush="Black"
+                                Grid.ColumnSpan="2"/>
+                            <ContentPresenter Margin="6,3,6,3" TextBlock.Foreground="white" TextBlock.FontSize="10" VerticalAlignment="Center"/>
+                            <Path x:Name="SortArrow" Visibility="Collapsed" Data="M 0,0 L 1,0 0.5,1 z" Stretch="Fill"
+                             Grid.Column="1" Width="8" Height="6" Fill="Black" Margin="0,0,8,0"
+                              VerticalAlignment="Center" RenderTransformOrigin="0.5, 0.4"/>
+                            <Rectangle Width="1" Fill="#000000" HorizontalAlignment="Right" Grid.ColumnSpan="2"/>
+
+                            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ThumbStyle}"/>
+                            <Thumb x:Name="PART_RightHeaderGripper" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource ThumbStyle}"/>
+                        </Grid>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Illuminated Power Plant_edited.jpg"/>
+        </Grid.Background>
+
+        <TextBox HorizontalAlignment="Left" KeyUp="TextBox_KeyUp" Margin="981,45,10,10" Name="searchText"  TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
+
+        <DataGrid Margin="122,68,10,10" CellEditEnding="myDataGridView_CellEditEnding"  CanUserAddRows="False" RowEditEnding="myDataGridView_RowEditEnding" EnableRowVirtualization="True" AutoGenerateColumns="False" LoadingRow="myDataGridView_LoadingRow" x:Name="myDataGridView" ItemsSource="{Binding}" BorderBrush="Black" BorderThickness="1,1,1,1" ColumnHeaderHeight="30" RowHeight="22" Opacity="0.90" RowBackground="#FFFFFFFF" AlternatingRowBackground="#cccccccc">
+
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Part Number" Binding="{Binding PartNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="On Hand" Binding="{Binding OnHand}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <StackPanel HorizontalAlignment="Left" Width="99" Margin="10,68,0,0">
+            <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Open file" Background="#FFA0B9F0" Foreground="Black" BorderBrush="Black" />
+            <Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save file" Background="#FFA0B9F0" Margin="0,10,0,0" Foreground="Black" BorderBrush="Black" />
+            <Button x:Name="btnSendFile" Click="btnSendFile_Click" Content="Send file" Background="#FFA0B9F0" Margin="0,10,0,0" Foreground="Black" BorderBrush="Black" />
+        </StackPanel>
+        <Rectangle HorizontalAlignment="Center" Height="38" Stroke="White" VerticalAlignment="Top" Width="1200" Fill="Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="981,22,0,0" Text="UPLOAD INVENTORY" TextWrapping="Wrap" VerticalAlignment="Top" Height="28" Width="209" Foreground="White" FontSize="14"/>
+        <Image HorizontalAlignment="Left" Height="51" Margin="10,5,0,0" VerticalAlignment="Top" Width="222" Source="/gth_header_logo_350px.png"/>
+
+
+
+    </Grid>
+
+</Window>
