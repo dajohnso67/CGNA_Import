@@ -160,25 +160,36 @@ namespace CGNA_WPF
 
         private void btnSendFile_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(saveFileName) && Path.GetExtension(saveFileName).ToLower().Contains("csv")) {
+            if (!string.IsNullOrEmpty(saveFileName) && Path.GetExtension(saveFileName).ToLower().Contains("csv"))
+            {
 
                 MessageBoxResult messageBoxResult = MessageBox.Show($"Please confirm that you are ready to send this file {saveFileName}", "Confirm FTP Upload", MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes) {
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        string userName = "gth";
+                        string password = "gthCGNA123";
+                        string Uri = "ftp://216.14.34.228/GTH.csv";
 
-                    string userName = "gth";
-                    string password = "gthCGNA123";
-                    string Uri = "ftp://216.14.34.228/GTH.csv";
+                        FtpWebRequest request = (FtpWebRequest)WebRequest.Create(Uri);
+                        request.Credentials = new NetworkCredential(userName, password);
+                        request.Method = WebRequestMethods.Ftp.UploadFile;
 
-                    FtpWebRequest request = (FtpWebRequest)WebRequest.Create(Uri);
-                    request.Credentials = new NetworkCredential(userName, password);
-                    request.Method = WebRequestMethods.Ftp.UploadFile;
+                        using Stream fileStream = File.OpenRead(saveFileName);
+                        using Stream ftpStream = request.GetRequestStream();
+                        fileStream.CopyTo(ftpStream);
 
-                    using Stream fileStream = File.OpenRead(saveFileName);
-                    using Stream ftpStream = request.GetRequestStream();
-                    fileStream.CopyTo(ftpStream);
-
-                    MessageBox.Show($"{saveFileName} has been sent.", "File Upload Complete");
+                        MessageBox.Show($"{saveFileName} has been sent.", "File Upload Complete");
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show(ex.Message, "File Upload Error");
+                    }
+                    
                 }
+            }
+            else {
+                MessageBox.Show("No file has been saved", "File Upload Error");
             }
         }
 
