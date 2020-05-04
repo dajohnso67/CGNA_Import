@@ -1,11 +1,9 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -20,7 +18,6 @@ namespace CGNA_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
         List<CsvColumns> modifiedRecords { get; set; }
         string saveFileName { get; set; }
 
@@ -34,6 +31,11 @@ namespace CGNA_WPF
             modifiedRecords = new List<CsvColumns>();
         }
 
+        /// <summary>
+        /// SearchText_GotFocus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void SearchText_GotFocus(object sender, EventArgs e)
         {
             if (searchText.Text == "Search Inventory...") {
@@ -41,6 +43,11 @@ namespace CGNA_WPF
             }
         }
 
+        /// <summary>
+        /// SearchText_LostFocus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void SearchText_LostFocus(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(searchText.Text.Trim())) {
@@ -48,6 +55,11 @@ namespace CGNA_WPF
             }
         }
 
+        /// <summary>
+        /// btnOpenFile_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -78,6 +90,11 @@ namespace CGNA_WPF
             }
         }
 
+        /// <summary>
+        /// ApplyRules
+        /// </summary>
+        /// <param name="csvFile"></param>
+        /// <returns></returns>
         private List<CsvColumns> ApplyRules(List<CsvColumns> csvFile) {
 
             List<string> deleted = new List<string>();
@@ -126,6 +143,11 @@ namespace CGNA_WPF
             return csvFile;
         }
 
+        /// <summary>
+        /// btnSaveFile_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSaveFile_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -158,11 +180,15 @@ namespace CGNA_WPF
             }
         }
 
+        /// <summary>
+        /// btnSendFile_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendFile_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(saveFileName) && Path.GetExtension(saveFileName).ToLower().Contains("csv"))
             {
-
                 MessageBoxResult messageBoxResult = MessageBox.Show($"Please confirm that you are ready to send this file {saveFileName}", "Confirm FTP Upload", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
@@ -185,7 +211,6 @@ namespace CGNA_WPF
                     catch (Exception ex) {
                         MessageBox.Show(ex.Message, "File Upload Error");
                     }
-                    
                 }
             }
             else {
@@ -193,18 +218,25 @@ namespace CGNA_WPF
             }
         }
 
+        /// <summary>
+        /// myDataGridView_LoadingRow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void myDataGridView_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
 
-        private void myDataGridView_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-        }
+        private void myDataGridView_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e) { }
 
+        /// <summary>
+        /// myDataGridView_CellEditEnding
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void myDataGridView_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-
             var _row = (CsvColumns)e.Row.Item;
             bool hasChange = false;
 
@@ -243,9 +275,13 @@ namespace CGNA_WPF
             if (hasChange) {
                 modifiedRecords.Add(_row);
             }
-            
         }
 
+        /// <summary>
+        /// TextBox_KeyUp
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (DataContext != null) {
@@ -261,6 +297,9 @@ namespace CGNA_WPF
         }
     }
 
+    /// <summary>
+    /// CsvColumns
+    /// </summary>
     public class CsvColumns
     {
         [CsvHelper.Configuration.Attributes.Name("PART #")]
@@ -276,6 +315,9 @@ namespace CGNA_WPF
         public double Price { get; set; }
     }
 
+    /// <summary>
+    /// GTHMap
+    /// </summary>
     public class GTHMap : ClassMap<CsvColumns>
     {
         public GTHMap()
@@ -287,33 +329,41 @@ namespace CGNA_WPF
         }
     }
 
-
+    /// <summary>
+    /// Rules
+    /// </summary>
     public static class Rules
     {
         public static JObject RulesConfig;
 
+        /// <summary>
+        /// CustomPrice
+        /// </summary>
         public static Dictionary<string, double> CustomPrice {
 
             get {
-
                 var Items = RulesConfig["CustomPrice"].ToObject<Dictionary<string, double>>();
                 return Items;
             }
         }
 
+        /// <summary>
+        /// StartsWith
+        /// </summary>
         public static List<string> StartsWith {
 
-            get
-            {
+            get {
                 var Items = RulesConfig["StartsWith"].ToObject<List<string>>();
                 return Items;
             }
         }
 
+        /// <summary>
+        /// Contains
+        /// </summary>
         public static List<string> Contains {
 
-            get
-            {
+            get {
                 var Items = RulesConfig["Contains"].ToObject<List<string>>();
                 return Items;
             }
