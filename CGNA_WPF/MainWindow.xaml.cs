@@ -27,7 +27,7 @@ namespace CGNA_WPF
         public MainWindow()
         {
             InitializeComponent();
-            searchText.Text = "Search Part Numbers...";
+            searchText.Text = "Search Inventory...";
             searchText.GotFocus += SearchText_GotFocus;
             searchText.LostFocus += SearchText_LostFocus;
             Rules.RulesConfig = JObject.Parse(File.ReadAllText("RulesConfiguration.json"));
@@ -36,7 +36,7 @@ namespace CGNA_WPF
 
         public void SearchText_GotFocus(object sender, EventArgs e)
         {
-            if (searchText.Text == "Search Part Numbers...") {
+            if (searchText.Text == "Search Inventory...") {
                 searchText.Text = string.Empty;
             }
         }
@@ -44,7 +44,7 @@ namespace CGNA_WPF
         public void SearchText_LostFocus(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(searchText.Text.Trim())) {
-                searchText.Text = "Search Part Numbers...";
+                searchText.Text = "Search Inventory...";
             }
         }
 
@@ -251,7 +251,10 @@ namespace CGNA_WPF
             if (DataContext != null) {
 
                 List<CsvColumns> _context = DataContext as List<CsvColumns>;
-                var filtered = _context.Where(p => p.PartNumber.ToLower().Contains(((TextBox)sender).Text.ToLower())).ToList();
+                var filtered = _context.Where(p => 
+                    p.PartNumber.ToLower().Contains(((TextBox)sender).Text.ToLower()) || 
+                    p.Description.ToLower().Contains(((TextBox)sender).Text.ToLower())
+                    ).ToList();
 
                 myDataGridView.ItemsSource = filtered;
             }
